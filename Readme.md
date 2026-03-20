@@ -14,8 +14,8 @@ run> python3 main.py
 
 to run the test cases :
 
->  python3 test_cases/runtime_error.py >test1.log
->  python3 test_cases/logic_error.py >test2.log 
->  python3 test_cases/syntax_error.py  >test3.log 
->  python3 test_cases/index_error.py  >test4.log 
->  python3 test_cases/type_error.py  >test5.log 
+python3 runtime_error.py >test1.log
+python3 logic_error.py >test2.log 
+python3 syntax_error.py  >test3.log 
+python3 index_error.py  >test4.log 
+python3 type_error.py  >test5.log 
