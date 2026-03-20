@@ -1,0 +1,198 @@
+============================================================
+TEST CASE 1: Runtime Error - Division by Zero
+============================================================
+
+INPUT CODE:
+-----------
+def calculate_average(numbers):
+    total = sum(numbers)
+    average = total / len(numbers)
+    return average
+
+grades = []
+result = calculate_average(grades)
+print(f"Average: {result}")
+
+PROMPT SENT TO LLM:
+-------------------
+Be a friendly programming tutor helping a beginner student debug their code.
+The student's code crashes with: ZeroDivisionError: division by zero
+Identify the bug, explain it in simple words, and give a hint to fix it.
+
+------------------------------------------------------------
+PROMPT 1 - Identify and explain the bug:
+------------------------------------------------------------
+I'm excited to help you debug your code. You're doing a great job so far, and with a little tweak, we can get it working perfectly.
+
+**1. What's wrong with the code:**
+The issue lies in the `calculate_average` function when it tries to calculate the average of an empty list.
+
+**2. Explaining the error in beginner-friendly terms:**
+The error message `ZeroDivisionError: division by zero` means that your code is trying to divide a number by zero, which doesn't make mathematical sense. Think of it like trying to share a pizza among zero friends - it just doesn't work!
+
+**3. Why this error happens:**
+In your code, the error occurs because the `grades` list is empty. When the `calculate_average` function tries to calculate the average, it uses the `len` function to get the number of elements in the list. Since the list is empty, `len(grades)` returns 0. Then, when it tries to divide the total sum by the length of the list (`average = total / len(numbers)`), it's essentially dividing by zero, which is not allowed.
+
+**4. Hint about how to fix it:**
+To fix this issue, you need to add a check to make sure you're not trying to calculate the average of an empty list. You could think about adding a conditional statement to handle this case. Perhaps you could return a special message or a default value when the list is empty? Take a closer look at your code and see if you can come up with a solution. I'm here to help if you get stuck!
+
+Keep going, you're doing great! Debugging is a normal part of the programming process, and it's an excellent opportunity to learn and improve your skills.
+------------------------------------------------------------
+PROMPT 2 - Show the corrected code:
+------------------------------------------------------------
+Here's the corrected version of your code:
+
+```python
+def calculate_average(numbers):
+    # Check if the list is empty
+    if len(numbers) == 0:
+        return None  # or you could return a special message, like "List is empty"
+    
+    total = sum(numbers)
+    average = total / len(numbers)
+    return average
+
+grades = []
+result = calculate_average(grades)
+
+# Check if result is not None before trying to print it
+if result is not None:
+    print(f"Average: {result}")
+else:
+    print("Cannot calculate average: List is empty")
+```
+
+Let's go through the changes I made:
+
+**1. Added a check for an empty list:**
+```python
+if len(numbers) == 0:
+    return None
+```
+This line checks if the `numbers` list is empty. If it is, the function immediately returns `None` (or you could return a special message). This prevents the division by zero error from occurring.
+
+**2. Changed the print statement to handle the case where `result` is `None`:**
+```python
+if result is not None:
+    print(f"Average: {result}")
+else:
+    print("Cannot calculate average: List is empty")
+```
+This change ensures that we don't try to print the average if the list is empty. Instead, we print a message indicating that the list is empty.
+
+**Why these changes fix the problem:**
+
+By adding the check for an empty list, we prevent the division by zero error from occurring. If the list is empty, we return `None` (or a special message) instead of trying to calculate the average.
+
+By changing the print statement, we handle the case where `result` is `None` (i.e., the list is empty). This prevents any potential errors that might occur when trying to print `None`.
+
+With these changes, your code is now more robust and can handle the case where the input list is empty.
+
+Alternatively, you could also consider raising a `ValueError` exception when the list is empty, like this:
+```python
+if len(numbers) == 0:
+    raise ValueError("Cannot calculate average: List is empty")
+```
+This approach can be useful if you want to explicitly indicate that something went wrong, rather than simply returning `None`.
+------------------------------------------------------------
+PROMPT 3 - What other edge cases should I handle with lists?
+------------------------------------------------------------
+When working with lists in Python, here are some additional edge cases you should consider handling:
+
+### 1. **None or Non-List Input**
+
+Make sure to check if the input is actually a list, and not `None` or some other type of object.
+
+```python
+def process_list(input_list):
+    if not isinstance(input_list, list):
+        raise ValueError("Input must be a list")
+    # ...
+```
+
+### 2. **Empty List with Non-Numeric Values**
+
+If your list is supposed to contain numbers, make sure to handle the case where it contains non-numeric values, such as strings or booleans.
+
+```python
+def calculate_average(numbers):
+    try:
+        total = sum(numbers)
+    except TypeError:
+        raise ValueError("List must contain only numbers")
+    # ...
+```
+
+### 3. **List with NaN or Infinity Values**
+
+If your list contains NaN (Not a Number) or infinity values, make sure to handle these cases accordingly.
+
+```python
+import math
+
+def calculate_average(numbers):
+    for num in numbers:
+        if math.isnan(num) or math.isinf(num):
+            raise ValueError("List must not contain NaN or infinity values")
+    # ...
+```
+
+### 4. **List with Very Large or Very Small Values**
+
+If your list contains very large or very small values, make sure to handle potential overflow or underflow errors.
+
+```python
+def calculate_average(numbers):
+    try:
+        total = sum(numbers)
+    except OverflowError:
+        raise ValueError("List contains values that are too large")
+    # ...
+```
+
+### 5. **Multi-Dimensional Lists**
+
+If your function is supposed to work with multi-dimensional lists (e.g., lists of lists), make sure to handle these cases correctly.
+
+```python
+def flatten_list(nested_list):
+    flat_list = []
+    for item in nested_list:
+        if isinstance(item, list):
+            flat_list.extend(flatten_list(item))
+        else:
+            flat_list.append(item)
+    return flat_list
+```
+
+### 6. **Mutable Lists**
+
+If your function modifies the input list, make sure to document this behavior and handle any potential side effects.
+
+```python
+def sort_list(input_list):
+    input_list.sort()  # modifies the input list
+    return input_list
+```
+
+By handling these edge cases, you can make your code more robust and reliable, and avoid potential errors or unexpected behavior.
+
+Here's an updated version of your `calculate_average` function that handles some of these edge cases:
+
+```python
+def calculate_average(numbers):
+    if not isinstance(numbers, list):
+        raise ValueError("Input must be a list")
+    if len(numbers) == 0:
+        raise ValueError("List must not be empty")
+    try:
+        total = sum(numbers)
+    except TypeError:
+        raise ValueError("List must contain only numbers")
+    for num in numbers:
+        if math.isnan(num) or math.isinf(num):
+            raise ValueError("List must not contain NaN or infinity values")
+    average = total / len(numbers)
+    return average
+```
+============================================================

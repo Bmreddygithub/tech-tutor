@@ -1,0 +1,142 @@
+============================================================
+TEST CASE 4: Index Error - Out of Bounds
+============================================================
+
+INPUT CODE:
+-----------
+def get_first_and_last(items):
+    first = items[0]
+    last = items[-1]
+    return first, last
+
+my_list = []
+result = get_first_and_last(my_list)
+print(result)
+
+PROMPT SENT TO LLM:
+-------------------
+Be a friendly programming tutor helping a beginner student debug their code.
+The student's code crashes with: IndexError: list index out of range
+The list passed in is empty. Explain what went wrong and how to fix it.
+
+------------------------------------------------------------
+PROMPT 1 - Identify and explain the bug:
+------------------------------------------------------------
+Don't worry about the error - it's a great opportunity to learn and improve your code.
+
+**1. What's wrong with the code:**
+The issue lies in the `get_first_and_last` function when trying to access the first and last elements of the `items` list.
+
+**2. Explaining the error in beginner-friendly terms:**
+The error message "IndexError: list index out of range" means that you're trying to access something in a list that doesn't exist. Think of a list like a row of boxes. When you try to access a box that's outside of the row (like box -1 or box 10 when there are only 5 boxes), Python gets confused and says "Hey, there's nothing there!"
+
+**3. Why this error happens:**
+In your code, you're trying to access the first (`items[0]`) and last (`items[-1]`) elements of the `my_list`. However, when `my_list` is empty (like in your example), there are no elements to access. It's like trying to open an empty box - there's nothing inside!
+
+**4. Hint about how to fix it:**
+To fix this issue, you need to add a check to make sure the list is not empty before trying to access its elements. You can do this by checking the length of the list or using a conditional statement to handle the case when the list is empty. Think about how you would ask Python: "Hey, is this list empty? If it is, do something else..."
+
+You're doing great, and with a little tweak, your code will be working in no time! Do you want to try to fix it on your own or would you like another hint?
+------------------------------------------------------------
+PROMPT 2 - Show the corrected code:
+------------------------------------------------------------
+Here's the corrected version of the code:
+
+```python
+def get_first_and_last(items):
+    # Check if the list is empty
+    if not items:
+        # If the list is empty, return a message or a default value
+        return None, None  # or you can return a message like "List is empty"
+    
+    # If the list is not empty, access the first and last elements
+    first = items[0]
+    last = items[-1]
+    return first, last
+
+my_list = []
+result = get_first_and_last(my_list)
+print(result)
+
+# Example with a non-empty list
+my_list = [1, 2, 3, 4, 5]
+result = get_first_and_last(my_list)
+print(result)
+```
+
+Let's go through the changes I made:
+
+*   **Added a check for an empty list:** `if not items:` checks if the `items` list is empty. In Python, an empty list is considered "falsy," meaning it's treated as `False` in a conditional statement. If the list is empty, the function returns `None, None` (or you can return a custom message).
+*   **Handled the case when the list is not empty:** If the list is not empty, the function accesses the first and last elements as before.
+*   **Provided an example with a non-empty list:** I added an example with a non-empty list to demonstrate that the function works correctly when the list has elements.
+
+By adding the check for an empty list, we ensure that the function doesn't try to access non-existent elements, which fixes the "IndexError: list index out of range" issue. This change makes the function more robust and able to handle different input scenarios.
+
+Alternatively, you could also raise a custom exception or return a specific value to indicate that the list is empty. The key idea is to handle the case when the list is empty to prevent the IndexError.
+
+For example, you could raise a `ValueError` exception when the list is empty:
+
+```python
+def get_first_and_last(items):
+    if not items:
+        raise ValueError("List is empty")
+    
+    first = items[0]
+    last = items[-1]
+    return first, last
+```
+
+Or, you could return a custom message:
+
+```python
+def get_first_and_last(items):
+    if not items:
+        return "List is empty", None
+    
+    first = items[0]
+    last = items[-1]
+    return first, last
+```
+
+Choose the approach that best fits your use case and requirements.
+------------------------------------------------------------
+PROMPT 3 - What does negative indexing mean in Python?
+------------------------------------------------------------
+In Python, negative indexing is a way to access elements in a sequence (like a list, tuple, or string) from the end. When you use a negative index, you're counting from the end of the sequence instead of the beginning.
+
+Here's how it works:
+
+*   **Negative indexing starts from -1:** The last element in a sequence has an index of -1.
+*   **Counting continues to the left:** As you decrease the index further (e.g., -2, -3, -4, ...), you move to the left, accessing elements closer to the beginning of the sequence.
+
+Here's an example to illustrate this:
+
+```python
+my_list = [1, 2, 3, 4, 5]
+```
+
+*   **Positive indexing (from the beginning):**
+    *   `my_list[0]` returns `1` (first element)
+    *   `my_list[1]` returns `2` (second element)
+    *   `my_list[2]` returns `3` (third element)
+    *   ...
+*   **Negative indexing (from the end):**
+    *   `my_list[-1]` returns `5` (last element)
+    *   `my_list[-2]` returns `4` (second-to-last element)
+    *   `my_list[-3]` returns `3` (third-to-last element)
+    *   `my_list[-4]` returns `2` (fourth-to-last element)
+    *   `my_list[-5]` returns `1` (first element, same as `my_list[0]`)
+
+Note that if you use an index that's more negative than the length of the sequence, you'll get an "IndexError: list index out of range" error. For example, `my_list[-6]` would raise an error because there's no sixth element from the end.
+
+Negative indexing is a convenient feature in Python, as it allows you to access elements from the end of a sequence without having to calculate the length of the sequence or use more complex indexing methods.
+
+Here's an example of using negative indexing to get the last few elements of a list:
+
+```python
+my_list = [1, 2, 3, 4, 5]
+last_three_elements = my_list[-3:]  # returns [3, 4, 5]
+```
+
+In this example, `my_list[-3:]` uses negative indexing to get all elements starting from the third-to-last element (`-3`) to the end of the list.
+============================================================

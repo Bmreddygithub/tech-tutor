@@ -1,0 +1,102 @@
+============================================================
+TEST CASE 5: Type Error - String + Integer Concatenation
+============================================================
+
+INPUT CODE:
+-----------
+def create_message(age):
+    message = "You are " + age + " years old"
+    return message
+
+user_age = 25
+print(create_message(user_age))
+
+PROMPT SENT TO LLM:
+-------------------
+Be a friendly programming tutor helping a beginner student debug their code.
+The student's code crashes with: TypeError: can only concatenate str (not int) to str
+Explain in simple words why this happens and show how to fix it.
+
+------------------------------------------------------------
+PROMPT 1 - Identify and explain the bug:
+------------------------------------------------------------
+I'm excited to help you debug your code. Don't worry, it's completely normal to encounter errors, and it's a great learning opportunity.
+
+**1. What's wrong with the code:**
+The issue is with this line: `message = "You are " + age + " years old"`. Specifically, the problem is that you're trying to combine a string (`"You are "`) with an integer (`age`) and another string (`" years old"`).
+
+**2. Explaining the error in beginner-friendly terms:**
+Imagine you have a sentence with words, and you want to add a number to it. In programming, words (like sentences) are called "strings," and numbers are called "integers." The error message is saying that you can't directly glue a string and an integer together. It's like trying to stick a word and a number together without any special help.
+
+**3. Why this error happens:**
+This error happens because Python is very particular about the types of data it works with. When you try to use the `+` operator to combine a string and an integer, Python gets confused because it doesn't know how to turn the integer into a string or vice versa. It's like trying to mix two different languages – Python needs everything to be in the same "language" (or data type) to work correctly.
+
+**4. Hint about how to fix it:**
+To fix this, you need to find a way to turn the integer (`age`) into a string, so it can be combined with the other strings. Think about how you can convert the `age` integer into a string, and then you'll be able to glue everything together nicely. You might want to look into a function that can help you do this conversion...
+
+Don't worry if it's not clear yet – we'll work through it together! What do you think you might try to fix this issue?
+------------------------------------------------------------
+PROMPT 2 - Show the corrected code:
+------------------------------------------------------------
+Here's the corrected version of the code:
+
+```python
+def create_message(age):
+    # Convert the age integer to a string using str()
+    message = "You are " + str(age) + " years old"
+    return message
+
+user_age = 25
+print(create_message(user_age))
+```
+
+Let's go through the important change:
+
+*   **Converting `age` to a string using `str()`**: The key change is `str(age)`. This converts the `age` integer into a string, allowing us to combine it with the other strings using the `+` operator.
+*   **Why `str()` fixes the problem:** By wrapping `age` in `str()`, we're explicitly telling Python to convert the integer `age` into a string. This way, when we use the `+` operator, Python knows that all the parts are strings, and it can glue them together correctly.
+
+With this change, the code should now work as expected, printing: `You are 25 years old`.
+
+Alternatively, you can use a more modern and efficient way to format strings in Python, using **f-strings** (available in Python 3.6 and later):
+
+```python
+def create_message(age):
+    message = f"You are {age} years old"
+    return message
+
+user_age = 25
+print(create_message(user_age))
+```
+
+In this version, the `f` before the string denotes an f-string. The expression inside the curly braces `{age}` is automatically converted to a string, so you don't need to use `str()` explicitly. This approach is often more readable and convenient, especially for more complex string formatting tasks.
+------------------------------------------------------------
+PROMPT 3 - Which fix is most modern and recommended in Python 3?
+------------------------------------------------------------
+In Python 3, the most modern and recommended way to format strings is by using **f-strings**. Here's the example again:
+
+```python
+def create_message(age):
+    message = f"You are {age} years old"
+    return message
+
+user_age = 25
+print(create_message(user_age))
+```
+
+F-strings are a feature introduced in Python 3.6, and they have become the preferred way to format strings in Python. They offer several advantages over other string formatting methods:
+
+*   **Readability**: F-strings are often more readable, as they allow you to embed expressions directly inside the string, making it easier to understand the intended output.
+*   **Convenience**: You don't need to use explicit type conversions (like `str()`) or formatting functions (like `format()`), which can make your code more concise and easier to write.
+*   **Performance**: F-strings are generally faster than other string formatting methods, as they are optimized for performance.
+
+The other string formatting methods, such as `str()` and `format()`, are still supported in Python 3, but f-strings are the recommended approach for new code.
+
+Here's a brief comparison of the different string formatting methods:
+
+*   **F-strings** (Python 3.6+): `f"You are {age} years old"`
+*   **`str()` and concatenation**: `"You are " + str(age) + " years old"`
+*   **`format()`**: `"You are {} years old".format(age)`
+*   **`%` operator**: `"You are %d years old" % age` (deprecated and not recommended)
+
+For new code in Python 3, f-strings are the way to go!
+============================================================
